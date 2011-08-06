@@ -1,0 +1,16 @@
+{block content}
+<h1>{block #title}Permission{/block}  <a href="{plink Permission:add}"><img src="{$basePath}/images/add.gif" height="19" width="19" title="Add permission" alt="Add icon" /></a></h1>
+
+{widget vp}
+
+{if count($acl)}<table cellspacing="0" cellpadding="5">
+    <tr><th>Role</th><th>Resource</th><th>Privilege</th><th>Access</th><th></th></tr>
+    {foreach $acl as $ac}
+    <tr><td>{$ac->role}</td><td>{$ac->resource}</td><td>{$ac->privilege}</td>
+        <td class="center"><img src="{$basePath}/images/{if $ac->access}true{else}false{/if}.gif" title="Access {if $ac->access}granted{else}denied{/if}"  width="20" height="20" alt="Access icon" /></td>
+        <td><a href="{plink Permission:edit, $ac->id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit access" alt="Edit icon" /></a>
+            <a href="{plink Permission:delete, $ac->id}"><img src="{$basePath}/images/delete.gif" height="19" width="19" title="Delete access" alt="Delete icon" /></a></td></tr>
+    {/foreach}
+</table>{/if}
+
+{widget vp}

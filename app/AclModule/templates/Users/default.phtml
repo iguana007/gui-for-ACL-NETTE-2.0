@@ -1,0 +1,23 @@
+{block content}
+<h1>{block #title}Users{/block} <a href="{plink Users:add}"><img src="{$basePath}/images/add.gif" height="19" width="19" title="Add user" alt="Add icon" /></a></h1>
+
+{$form->render('begin')}
+{$form->render('errors')}
+<table>
+    <tr><th>{$form['name']->getLabel()}</th><td>{$form['name']->getControl()}</td><td>{$form['search']->getControl()}</td></tr>
+    <tr><td></td><td colspan="2">Examples: "John Doe", "John*", "%Doe"</td></tr>
+</table>
+{$form->render('end')}
+
+{widget vp}
+
+<dl>
+{foreach $users as $id => $user}
+    <dt>{$user['name']} <a href="{plink Users:edit, $id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit user" alt="Edit icon" /></a>
+        <a href="{plink Users:access, $id}"><img src="{$basePath}/images/access.gif" height="20" width="20" title="Show access for this user" alt="Access icon" /></a>
+        <a href="{plink Users:delete, $id}"><img src="{$basePath}/images/delete.gif" height="19" width="19" title="Delete user" alt="Delete icon" /></a></dt>
+        {if count($user['roles'])}<dd>{foreach $user['roles'] as $role}{$role}{if !$iterator->isLast()}, {/if}{/foreach}</dd>{/if}
+{/foreach}
+</dl>
+
+{widget vp}

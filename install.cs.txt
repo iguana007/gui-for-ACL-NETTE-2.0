@@ -1,0 +1,106 @@
+GUI for Acl 2010, Tomáš Marcaník
+================================
+
+
+Upozornění
+----------
+
+Nejprve čtěte soubor README.txt
+
+
+
+Instalace
+---------
+
+- Adresáře 'document_root/images' a 'document_root/js' zkopírujte do vašeho
+  adresáře s webem (adresář obsahující index.php).
+- Z adresáře 'document_root/css' zkopírujte soubor 'acl.css' do vašeho adresáře
+  'document_root/css'.
+- Zkopírujte adresář 'libs/VisualPaginator' do vaší složky s knihovnami.
+- Adresář 'app/AclModule' nakopírujte do vašeho adresáře 'app/'.
+- Obsah adresáře 'app/models' nakopírujte do vašeho adresáře s modely.
+- Obsah presenteru 'app/presenters/BasePresenter.php' nakopírujte do svého
+  'BasePresenter.php'. Jedná se o metodu 'checkAccess()', 'startup()' a proměnné
+  $user, $cache, $oldLayoutMode = FALSE, $oldModuleMode = FALSE. Pokud váš
+  'BasePresenter.php' již metodu 'startup()' obsahuje, tak je patřičně
+  sjednoťte.
+- Do vašeho 'bootstrap.php' přidejte routu pro routování modulů (pokud ji tam
+  již nemáte).
+- Do vašeho 'config.ini' přidejte všechny nastavení začínající na 'database.'
+  a 'acl.'.
+- Nad vaší databází spusťte soubor 'PostgreSQL.sql' nebo 'MySQL.sql' (podle vaší
+  databáze).
+- Smažte obsah vašeho adresáře 'app/temp'.
+- Do své aplikace přidejte metody na kontrolu oprávnění.
+  V presenteru:
+    if ($this->user->isAllowed('resource_key_name', 'privilege_key_name'))
+    { ... }
+  V šabloně:
+    {if $user->isAllowed('resource_key_name', 'privilege_key_name')}
+    ... {/if}
+- Váš přihlašovací presenter napojte na tabulku 'gui_users'. Heslo admina je
+  v tabulce 'gui_users' zahešované funkcí MD5() - myslete na to při úpravě
+  logovacího presenteru! Stejně tak pamatujte na to, že informace o živateli
+  jsou ukládány již v BasePresenter.php do 'public $user', a proto veškeré
+  přístupy k uživateli dělejte přes '$this->user'.
+- Při nastavování identity jako druhý parametr uveďte pole rolí, do kterých daný
+  uživatel patří. Viz. 'LoginModel.php'.
+- Výchozí role umožňující přístup do administrace je 'Acl Admin' (ID role = 1).
+- Výchozí uživatel, který má přístup do administrace (má nastavenou roli
+  'Acl Admin') je uživatel jménem 'Admin' s heslem 'Admin'.
+
+
+
+Rady
+----
+
+Při editaci 'config.ini' nezapomeňte změnit driver podle druha vaší databáze.
+
+Jestli vám při spouštění aplikace vyskakuje chyba 'No database selected', tak
+zkuste změnit v souboru 'config.ini' řádek:
+  database.dbname = ...
+na
+  database.database = ...
+nebo případně naopak. 
+
+V případě, že nejde zaregistrovat autorizační služba přes BasePresenter.php,
+tak ji zaregistrujte přímo v 'config.ini':
+  service.Nette-Security-IAuthorizator  = Acl
+
+Pokud si nevíte rady s vytvořením přihlašovacího okna, tak můžete použít
+presenter 'app/FrontModule/presenters/LoginPresenter.php' a jeho šablonu
+'app/FrontModule/templates/Login/default.phtml'. Aby přihlašování fungovalo
+správně, je nutné zaregistrovat autentizační službu. Například v config.ini:
+  service.Nette-Security-IAuthenticator = Login
+
+V šabloně 'app/AclModule/templates/@layout.phtml' upravte přihlašovací
+a odhlašovací odkaz - řádky 37 až 41.
+
+Jméno zdroje a privilegia, které umožňují vstup do administrace Acl se nastavují
+prostřednictvím položek v config.ini:
+  acl.resource = acl_permission
+  acl.privilege = acl_access
+
+Během nastavování veškerých práv a pravidel se doporučuje mít kešování vypnuté.
+Po požadovaném nastavení aplikace a následného otestování můžete kešování
+zapnout a odlehčit tak nárokům na běh aplikace. Kešování objektu se
+aktivuje/deaktivuje přes nastavení v config.ini:
+  acl.cache = false
+
+Programátorský mód slouží ke správě privilegií a zdrojů přes grafické rozhraní.
+Odpadá tak nutnost přímého zasahování do databáze. Při nastavování privilegií,
+zdrojů, rolí atp. se doporučuje tento mód mít zapnutý. Po nastavení aplikace
+by měl být programátorský mód vypnut, aby běžný uživatel neměl možnost editovat
+privilegia a zdroje, které jsou přímo závislé na částech zdrojového kódu ve vaší
+aplikaci. K aktivaci/deaktivaci programátorského módu slouží nastavení:
+  acl.programmer_mode = true
+
+
+
+Požadavky
+---------
+
+PHP 5.2.0 nebo vyšší.
+Nette 0.9.2 nebo 0.9.3 (jiné verze neověřeny).
+dibi 1.2  (jiné verze neověřeny).
+Aplikace musí využívat novou adresářovou strukturu ($oldLayoutMode = FALSE; $oldModuleMode = FALSE).

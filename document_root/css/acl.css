@@ -1,0 +1,46 @@
+/****************
+* Global
+****************/
+body { font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif; color: black; background-color: #ACB2B5; text-align: center; margin: 0 auto; width: 900px; }
+th label { display: inline-block; text-align: right; float: right; }
+table, fieldset { margin: 0 auto; }
+dl { padding: 0 25px; }
+dt { height: 30px; line-height: 30px; vertical-align: baseline; }
+dl dd { color: gray; }
+img { border: 0; margin: 0; padding: 0; }
+/****************
+* Layout
+****************/
+#content { margin: 0 auto; padding: 20px; text-align: left; background-color: white; }
+#menu { text-align: center; background-color: #94B1DE; height: 35px; line-height: 35px; font-size: 0; }
+#menu ul { list-style: none; margin: auto 0; }
+#menu ul li { font-size: 16px; padding: 0 10px; display: inline-block; border-right: 1px solid #898989; }
+#menu ul li.hover { background-color: white; }
+#menu ul li.last { border: 0; }
+#menu a { text-decoration: none; font-weight: bold; color: #4351E3; }
+#footer { padding: 5px 0; background-color: #94B1DE; font-weight: bold; color: #4351E3; }
+/****************
+* User defined
+****************/
+.right { text-align: right; }
+.center { text-align: center; }
+.error { color: red; }
+ul.error { list-style: none; }
+ul.error li { text-align: center; color: red; }
+ul.error li.ok { color: green; }
+div.tree ul { list-style: none; padding: 0 0 0 25px; }
+div.tree ul li { list-style: none; margin: 0; height: 25px; line-height: 25px; }
+div.tree ul ul li { list-style-image: url(../images/node.gif); }
+div.tree ul ul li.last { list-style-image: url(../images/node_last.gif); }
+div.tree ul ul { margin: 0 0 15px 10px; }
+img.info { cursor: help; }
+select.roles { width: 200px; }
+tr.center label { float: none; width: 100%; text-align: center; font-weight: bold; }
+/****************
+* Paginator
+****************/
+.paginator { margin: 1em 0; font-size: 90%; }
+.paginator a, .paginator span { margin-right: 0.1em; padding: 0.2em 0.5em; color: #999999; }
+.paginator a { border: 1px solid #9AAFE5; text-decoration: none; color: #105CB6; }
+.paginator span.button { border: 1px solid #DDDDDD; }
+.paginator .current { background: #2E6AB1; border: 1px solid #2E6AB1; color: white; font-weight: bold; }

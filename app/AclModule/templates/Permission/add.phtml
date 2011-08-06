@@ -1,0 +1,10 @@
+{block content}
+<h1>{block #title}Add permission{/block}</h1>
+
+{$form->render('begin')}
+{$form->render('errors')}
+<table cellspacing="0" cellpadding="5">
+    <tr class="center"><th>{$form['role_id']->getlabel()}</th><th>{$form['resource_id']->getlabel()}</th><th>{$form['privilege_id']->getlabel()}</th><th>{$form['access']->getlabel()}</th></tr>
+    <tr><td>{$form['role_id']->getcontrol()}</td><td>{$form['resource_id']->getcontrol()}</td><td>{$form['privilege_id']->getcontrol()}</td><td>{$form['access']->getcontrol()}<br />{$form['assign']->getcontrol()}</td></tr>
+</table>
+{$form->render('end')}

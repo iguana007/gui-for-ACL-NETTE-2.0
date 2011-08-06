@@ -1,0 +1,24 @@
+{var $continue = false}
+{var $depth = 1}
+
+{block #treeView}
+<ul{if $continue} class="border_parent"{/if}>
+    {foreach $parents as $child}
+    <li{if $iterator->isLast()} class="last"{/if}>{$child->name} ({$child->members}) 
+        <a href="{plink Roles:add, $child->id}"><img src="{$basePath}/images/add.gif" height="19" width="19" title="Add role" alt="Add icon" /></a>
+        <a href="{plink Roles:edit, $child->id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit role" alt="Edit icon" /></a>
+        <a href="{plink Roles:users, $child->id}"><img src="{$basePath}/images/users.gif" height="20" width="20" title="Show users" alt="Users icon" /></a>
+        <a href="{plink Roles:access, $child->id}"><img src="{$basePath}/images/access.gif" height="20" width="20" title="Show access for this role" alt="Access icon" /></a>
+        <img src="{$basePath}/images/info.gif" class="info" height="19" width="19" alt="Info icon" title="{$child->comment}" />
+        <a href="{plink Roles:delete, $child->id}"><img src="{$basePath}/images/delete.gif" height="19" width="19" title="Delete role" alt="Delete icon" /></a></li>
+    {if $nodes->hasChildNodes($child->id)}
+        {if $iterator->isLast() OR $depth==1}
+            {var $continue = false}
+        {else}
+            {var $continue = true}
+        {/if}
+        {include #treeView, 'parents' => $nodes->getChildNodes($child->id), 'continue' => $continue, 'depth' => $depth+1}
+    {/if}
+    {/foreach}
+</ul>
+{/block}

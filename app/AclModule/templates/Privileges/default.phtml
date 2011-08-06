@@ -1,0 +1,8 @@
+{block content}
+<h1>{block #title}Privileges{/block}{if $prog_mode} <a href="{plink Privileges:add}"><img src="{$basePath}/images/add.gif" height="19" width="19" title="Add privilege" alt="Add icon" /></a>{/if}</h1>
+<dl>
+{foreach $privileges as $privilege}
+<dt>{$privilege->name} <a href="{plink //Privileges:edit, $privilege->id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit privileg" alt="Edit icon" /></a>{if $prog_mode} <a href="{plink Privileges:delete, $privilege->id}"><img src="{$basePath}/images/delete.gif" height="19" width="19" title="Delete privilege" alt="Delete icon" /></a>{/if}</dt>
+    {ifset $privilege->comment}<dd>{$privilege->comment}</dd>{/ifset}
+{/foreach}
+</dl>

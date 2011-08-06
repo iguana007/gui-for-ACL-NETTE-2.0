@@ -1,0 +1,54 @@
+{**
+ * GUI for Acl layout template.
+ *
+ * @copyright  Copyright (c) 2010 Tomas Marcanik
+ * @package    GUI for Acl
+ *
+ * @param string   $basePath web base path
+ * @param string   $user users methods (if authenticated)
+ * @param string   $identity users identity (if authenticated)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="copyright" content="Copyright (c) 2010 Tomas Marcanik, e-mail: tomas.marcanik@gmail.com" />
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css">
+	<title>{block #title}{/block}</title>
+</head>
+<body>
+    <div id="content">
+
+            <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+        <div id="user-info">
+            <h3>Uživatelský panel</h3>
+            <p>
+                <b>Uživatel:</b> {ifset $identity}{$identity->name}{else}<i>Nepřihlášen</i>{/ifset}<br />
+                <b>Role:</b>
+                <ul>
+                    {ifset $identity->roles}
+                    {foreach $identity->roles as $role}
+                    <li>{$role}</li>
+                    {/foreach}
+                    {else}
+                    <li>{$user->guestRole}</li>
+                    {/ifset}
+                </ul>
+            </p>
+
+            <b>Rychlá navigace</b>
+            <div>
+                {if $user->isLoggedIn() AND $user->isAllowed(ACL_RESOURCE, ACL_PRIVILEGE)}<a n:href=":Acl:Users:">GUI for Acl</a><br />{/if}
+                {if $user->isLoggedIn()}<a href="{plink Login:logout}">Odhlásit</a>
+                {else}<a href="{plink Login:}">Přihlásit</a>{/if}
+            </div>
+        </div>
+        
+	{include #content}
+        <div class="cleaner"></div>
+    </div>
+</body>
+</html>

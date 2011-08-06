@@ -1,0 +1,9 @@
+{block content}
+<h1>{block title}Authorized access for the user "{$user_name}"{/block}</h1>
+
+{if count($access)}<table cellspacing="0" cellpadding="5">
+    <tr><th>Resources</th><th>Privileges</th><th>Access</th></tr>
+    {foreach $access as $acces}
+    <tr><td>{$acces['resource']}</td><td>{$acces['privileg']}</td><td class="center"><img src="{$basePath}/images/true.gif" width="20" height="20" alt="True icon" /></td></tr>
+    {/foreach}
+</table>{/if}

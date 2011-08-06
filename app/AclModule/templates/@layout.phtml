@@ -1,0 +1,54 @@
+{**
+ * GUI for Acl layout template.
+ *
+ * @copyright  Copyright (c) 2010 Tomas Marcanik
+ * @package    GUI for Acl
+ *
+ * @param string   $basePath web base path
+ * @param string   $user users methods (if authenticated)
+ * @param string   $identity users identity (if authenticated)
+ * @param array    $flashes  flash messages
+ * @param string   $current current presenter
+ *}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache, must-revalidate" />
+        <meta http-equiv="expires" content="0" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="googlebot" content="nosnippet,noarchive" />
+        <meta name="copyright" content="Copyright (c) 2010 Tomas Marcanik, e-mail: tomas.marcanik@gmail.com" />
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/acl.css" type="text/css">
+        <script type="text/javascript" src="{$basePath}/js/jquery.min.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/create-key.js"></script>
+	<title>{block #title}{/block} | GUI Acl</title>
+</head>
+<body>
+    <div id="menu">
+        <ul>
+            <li{if $current=='Acl:Users'} class="hover"{/if}><a href="{plink //Users:default}">Users</a></li>
+            <li{if $current=='Acl:Permission'} class="hover"{/if}><a href="{plink //Permission:}">Permission</a></li>
+            <li{if $current=='Acl:Roles'} class="hover"{/if}><a href="{plink //Roles:}">Roles</a></li>
+            <li{if $current=='Acl:Resources'} class="hover"{/if}><a href="{plink //Resources:}">Resources</a></li>
+            <li{if $current=='Acl:Privileges'} class="hover last"{/if}><a href="{plink //Privileges:}">Privileges</a></li>
+            {if $user->isLoggedIn()}
+            <li class="last"><a href="{plink :Front:Login:logout}">Logout [{$identity->name}]</a></li>
+            {else}
+            <li class="last"><a href="{plink :Front:Login:}">Login</a></li>
+            {/if}
+        </ul>
+    </div>
+    <div id="content">
+            <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	{include #content}
+        
+    </div>
+    <div id="footer">Copyright &copy; 2010 <a href="mailto:tomas.marcanik@gmail.com">Tomáš Marcaník</a></div>
+<script type="text/javascript">
+$("ul.border_parent").parent().css("border-left", "1px solid grey");
+</script>
+</body>
+</html>

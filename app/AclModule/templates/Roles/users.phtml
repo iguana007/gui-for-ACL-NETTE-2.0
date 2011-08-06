@@ -1,0 +1,13 @@
+{block title}Users of role {$role}{/block}
+{block content}
+{include './default.phtml'}
+
+<h2>Users belong to the role "{$role}"</h2>
+
+<div class="tree">
+<ul>
+    {foreach $users as $user}
+    <li>{$user->name} <a href="{plink Users:edit, $user->id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit user" alt="Edit icon" /></a></li>
+    {/foreach}
+</ul>
+</div>

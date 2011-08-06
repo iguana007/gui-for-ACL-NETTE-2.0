@@ -1,0 +1,11 @@
+{block content}
+<h1>{block #title}Delete access{/block}</h1>
+
+<p>Are you sure you want to delete the access?</p>
+
+<table cellspacing="0" cellpadding="5">
+    <tr><th>Role</th><th>Resource</th><th>Privilege</th><th>Access</th></tr>
+    <tr><td>{$acl->role}</td><td>{$acl->resource}</td><td>{$acl->privilege}</td><td><img src="{$basePath}/images/{if $acl->access}true{else}false{/if}.gif" title="Access {if $acl->access}granted{else}denied{/if}"  width="20" height="20" alt="Access icon" /></td></tr>
+</table>
+
+{widget delete}

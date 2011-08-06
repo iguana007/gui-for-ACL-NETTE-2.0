@@ -1,0 +1,5 @@
+{block content}
+<h1>{block #title}Resources{/block}{if $prog_mode} <a href="{plink Resources:add}"><img src="{$basePath}/images/add.gif" height="19" width="19" title="Add resource" alt="Add icon" /></a>{/if}</h1>
+<div class="tree">
+    {include './treeView.phtml'}
+</div>

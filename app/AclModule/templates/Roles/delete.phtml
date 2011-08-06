@@ -1,0 +1,8 @@
+{block content}
+<h1>{block #title}Delete role{/block}</h1>
+
+<p>Are you sure you want to delete the role "{$role}"?</p>
+
+<p class="error">Warnign: The operation also deletes all descendants of the role "{$role}"!</p>
+
+{widget delete}

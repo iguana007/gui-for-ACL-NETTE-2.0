@@ -1,0 +1,20 @@
+{var $continue = false}
+{var $depth = 1}
+{block #treeView}
+<ul{if $continue} class="border_parent"{/if}>
+    {foreach $parents as $child}
+    <li{if $iterator->isLast()} class="last"{/if}>{$child->name} 
+        <a href="{plink Resources:edit, $child->id}"><img src="{$basePath}/images/edit.gif" height="19" width="19" title="Edit resource" alt="Edit icon" /></a>
+        <img src="{$basePath}/images/info.gif" class="info" height="19" width="19" alt="Info icon" title="{$child->comment}" />
+    {if $prog_mode} <a href="{plink Resources:delete, $child->id}"><img src="{$basePath}/images/delete.gif" height="19" width="19" title="Delete resource" alt="Delete icon" /></a>{/if}</li>
+    {if $nodes->hasChildNodes($child->id)}
+        {if $iterator->isLast() OR $depth==1}
+            {var $continue = false}
+        {else}
+            {var $continue = true}
+        {/if}
+        {include #treeView, 'parents' => $nodes->getChildNodes($child->id), 'continue' => $continue, 'depth' => $depth+1}
+    {/if}
+    {/foreach}
+</ul>
+{/block}
